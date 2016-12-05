@@ -38,7 +38,6 @@ Builder.load_string(
 		Camera:
 			id: 'camera'
 			resolution: (650, 480)
-			# index: '1'
 		Button:
 			text: "Menu"
 			size_hint: None,None
@@ -51,7 +50,6 @@ Builder.load_string(
 			size_hint: None,None
 			width: root.width*0.5
 			height: '48dp'
-			on_press: root.camera.index = '0'
 
 
 ''')
