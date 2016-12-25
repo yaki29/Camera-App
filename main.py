@@ -29,7 +29,7 @@ Builder.load_string(
 				pos: self.parent.pos
 				size: self.parent.size
 				Image:
-					source: 'icon.png'
+					source: 'icon/icon.png'
 					pos: self.pos
 					size: self.size
 		Button: 
@@ -40,7 +40,7 @@ Builder.load_string(
 				pos: self.parent.pos
 				size: self.parent.size
 				Image:
-					source: 'music_icon.png'
+					source: 'icon/music_icon.png'
 					pos: self.pos
 					size: self.size
 		Button:
@@ -51,12 +51,19 @@ Builder.load_string(
 				pos: self.parent.pos
 				size: self.parent.size
 				Image:
-					source: 'gallery.png'
+					source: 'icon/gallery.png'
 					pos: self.pos
 					size: self.size
 		Button:
-			text: "Button 4"
+			text: ""
 			background_color: (0,1,0,0.5)
+			BoxLayout:
+				pos: self.parent.pos
+				size: self.parent.size
+				Image:
+					source: 'icon/credit.png'
+					pos: self.pos
+					size: self.size
 
 <CameraScreen>:
 	BoxLayout:
@@ -76,7 +83,7 @@ Builder.load_string(
 				pos: self.parent.pos
 				size: self.parent.size
 				Image:
-					source: 'back.png'
+					source: 'icon/back.png'
 					pos: self.pos
 					size: self.size
 	
@@ -93,37 +100,142 @@ Builder.load_string(
 				pos: self.parent.pos
 				size: self.parent.size
 				Image: 
-					source: 'capture.png'
+					source: 'icon/capture.png'
 					pos: self.pos
 					size: self.size
 		
 <GalleryScreen>:
-	name: "gallery"
-	BoxLayout:
-		id: gallery_layout
-		Button: 
-			on_press: root.AddImage()	
+	GridLayout:
+		orientation: 'vertical'
+		cols: 1
+		GridLayout:
+			cols: 2
+			padding: 5
+			spacing: 400
+			size_hint_y: None
+			height: self.minimum_height
+			Label: 
+				text: "Gallery"
+				font_size: 40
+			Button: 
+				text: "back"
+				on_press: root.manager.current = "start"
+				size_hint: None, None
+				height: '40dp'
+				width: '40dp'
+		ScrollView:
+			id: scroller
+			# size_hint:None, None
+			# size: 500, 320
+	        # pos_hint: {'center_x': .5, 'center_y': .5}, 
+	  #       do_scroll_x:False
+			
+			GridLayout:
+				cols: 4
+
+				padding: 10
+				spacing: 10
+				size_hint_y: None
+				height: self.minimum_height
+				id: gallery_layout
+				
+				Image:
+					source: 'pics/yash.jpg'
+					size_hint_y: None
+					height: '40dp'
+				Image:
+					source: 'pics/yash.jpg'
+					size_hint_y: None
+					height: '240dp'
+				Image:
+					source: 'pics/yash.jpg'
+					size_hint_y: None
+					height: '240dp'
+				Image:
+					source: 'pics/yash.jpg'
+					size_hint_y: None
+					height: '240dp'
+				Image:
+					source: 'pics/yash.jpg'
+					size_hint_y: None
+					height: '240dp'				
+				Image:
+					source: 'pics/yash.jpg'
+					size_hint_y: None
+					height: '240dp'			
+					height: '240dp'
+				Image:
+					source: 'pics/yash.jpg'
+					size_hint_y: None
+					height: '240dp'
+				Image:
+					source: 'pics/yash.jpg'
+					size_hint_y: None
+					height: '240dp'
+				Image:
+					source: 'pics/yash.jpg'
+					size_hint_y: None
+					height: '240dp'
+				Image:
+					source: 'pics/yash.jpg'
+					size_hint_y: None
+					height: '240dp'
+				Image:
+					source: 'pics/yash.jpg'
+					size_hint_y: None
+					height: '240dp'
+				
+				Image:
+					source: 'pics/yash.jpg'
+					size_hint_y: None
+					height: '240dp'
+				Image:
+					source: 'pics/yash.jpg'
+					size_hint_y: None
+					height: '240dp'
+				Image:
+					source: 'pics/yash.jpg'
+					size_hint_y: None
+					height: '240dp'
+				Image:
+					source: 'pics/yash.jpg'
+					size_hint_y: None
+					height: '240dp'
+				Image:
+					source: 'pics/yash.jpg'
+					size_hint_y: None
+				
+		# Button: 
+		# 	on_press: root.AddImage()	
 
 <AudioScreen>:
 	GridLayout:
-		cols: 2
+		cols: 1
 		Button:
 			text: "hello"
-			on_press: root.playmusic()
+			on_press: root.define()
+		Button: 
+			id: btn
+			text: "press"
+
 ''')
 camera = ObjectProperty(None)
 gallery_layout = ObjectProperty(None)
 class StartScreen(Screen):
 	pass
 class AudioScreen(Screen):
-	def playmusic(self):
-		fname = 'example.wav'
-		sound = SoundLoader.load(fname)
-		# if sound is not None:
-			# print "played"
-			# sound.play()
-		# else:
-		# 	print "Doesn't exist"
+	def define(self):
+		print "entered into define"
+		btn = self.ids['btn']
+		btn.bind(on_press=self.playmusic)
+ 
+	def playmusic(self,*args):
+		print "played"
+		s = SoundLoader.load('example.wav')
+		print "hey executed"
+		# sound.volume = 0.5
+		# sound.play()	
+
 class CameraScreen(Screen):
 	
 	# def changei(x):
@@ -151,7 +263,7 @@ sm.add_widget(CameraScreen(name="camera"))
 sm.add_widget(GalleryScreen(name="gallery"))
 sm.add_widget(AudioScreen(name="audio"))
 class CameraApp(App):
-	sm.current = "start"
+	sm.current = "gallery"
 	def build(self):
 		return sm
 CameraApp().run()
