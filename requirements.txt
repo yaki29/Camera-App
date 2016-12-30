@@ -3,3 +3,4 @@ So what you need is
 
 1. Python 2.7 
 2. Kivy installed
+3. Gstreamer 1.x , 0.10
